@@ -4,6 +4,7 @@
 #ifndef _D3DCLASS_H_
 #define _D3DCLASS_H_
 
+
 /////////////
 // LINKING //
 /////////////
@@ -11,11 +12,13 @@
 #pragma comment(lib, "d3dx10.lib")
 #pragma comment(lib, "dxgi.lib")
 
+
 //////////////
 // INCLUDES //
 //////////////
 #include <d3d10.h>
 #include <d3dx10.h>
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: D3DClass
@@ -39,17 +42,13 @@ public:
 	void GetWorldMatrix(D3DXMATRIX&);
 	void GetOrthoMatrix(D3DXMATRIX&);
 
-	void GetVideoCardInfo(char*, int&);
-
 	void TurnZBufferOn();
 	void TurnZBufferOff();
 
 private:
 	bool m_vsync_enabled;
-	int m_videoCardMemory;
-	char m_videoCardDescription[128];
-	IDXGISwapChain* m_swapChain;
 	ID3D10Device* m_device;
+	IDXGISwapChain* m_swapChain;
 	ID3D10RenderTargetView* m_renderTargetView;
 	ID3D10Texture2D* m_depthStencilBuffer;
 	ID3D10DepthStencilState* m_depthStencilState;
@@ -58,7 +57,6 @@ private:
 	D3DXMATRIX m_projectionMatrix;
 	D3DXMATRIX m_worldMatrix;
 	D3DXMATRIX m_orthoMatrix;
-
 	ID3D10DepthStencilState* m_depthDisabledStencilState;
 };
 

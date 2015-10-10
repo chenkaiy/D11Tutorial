@@ -51,6 +51,15 @@
     <ClCompile Include="lightclass.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="fontshaderclass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fontclass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="textclass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="systemclass.h">
@@ -86,6 +95,15 @@
     <ClInclude Include="lightclass.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="fontclass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fontshaderclass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="textclass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.fx">
@@ -95,6 +113,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="light.fx">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="font.fx">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

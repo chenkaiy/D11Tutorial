@@ -3,11 +3,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "systemclass.h"
 
+
 SystemClass::SystemClass()
 {
 	m_Input = 0;
 	m_Graphics = 0;
 }
+
 
 SystemClass::SystemClass(const SystemClass& other)
 {
@@ -17,6 +19,7 @@ SystemClass::SystemClass(const SystemClass& other)
 SystemClass::~SystemClass()
 {
 }
+
 
 bool SystemClass::Initialize()
 {
@@ -58,6 +61,7 @@ bool SystemClass::Initialize()
 	return true;
 }
 
+
 void SystemClass::Shutdown()
 {
 	// Release the graphics object.
@@ -80,6 +84,7 @@ void SystemClass::Shutdown()
 	
 	return;
 }
+
 
 void SystemClass::Run()
 {
@@ -116,25 +121,27 @@ void SystemClass::Run()
 			}
 		}
 
+		// Check if the user pressed escape and wants to quit.
+		if(m_Input->IsKeyDown(VK_ESCAPE))
+		{
+			done = true;
+		}
 	}
 
 	return;
-
 }
+
 
 bool SystemClass::Frame()
 {
 	bool result;
 
 
-	// Check if the user pressed escape and wants to exit the application.
-	if(m_Input->IsKeyDown(VK_ESCAPE))
-	{
-		return false;
-	}
-
 	// Do the frame processing for the graphics object.
-	result = m_Graphics->Frame();
+	m_Graphics->Frame();
+
+	// Finally render the graphics to the screen.
+	result = m_Graphics->Render();
 	if(!result)
 	{
 		return false;
@@ -142,6 +149,7 @@ bool SystemClass::Frame()
 
 	return true;
 }
+
 
 LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
@@ -171,6 +179,7 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 	}
 }
 
+
 void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 {
 	WNDCLASSEX wc;
@@ -178,7 +187,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	int posX, posY;
 
 
-	// Get an external pointer to this object.
+	// Get an external pointer to this object.	
 	ApplicationHandle = this;
 
 	// Get the instance of this application.
@@ -188,18 +197,18 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	m_applicationName = L"Engine";
 
 	// Setup the windows class with default settings.
-	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wc.lpfnWndProc = WndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = m_hinstance;
-	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-	wc.hIconSm = wc.hIcon;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wc.lpfnWndProc   = WndProc;
+	wc.cbClsExtra    = 0;
+	wc.cbWndExtra    = 0;
+	wc.hInstance     = m_hinstance;
+	wc.hIcon		 = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIconSm       = wc.hIcon;
+	wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	wc.lpszMenuName = NULL;
+	wc.lpszMenuName  = NULL;
 	wc.lpszClassName = m_applicationName;
-	wc.cbSize = sizeof(WNDCLASSEX);
+	wc.cbSize        = sizeof(WNDCLASSEX);
 	
 	// Register the window class.
 	RegisterClassEx(&wc);
@@ -238,8 +247,8 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 
 	// Create the window with the screen settings and get the handle to it.
 	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, 
-				WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-				posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
+						    WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
+						    posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
 
 	// Bring the window up on the screen and set it as main focus.
 	ShowWindow(m_hwnd, SW_SHOW);
@@ -251,6 +260,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 
 	return;
 }
+
 
 void SystemClass::ShutdownWindows()
 {
@@ -276,6 +286,7 @@ void SystemClass::ShutdownWindows()
 
 	return;
 }
+
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
